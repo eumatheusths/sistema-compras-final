@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar"; // Importe o Sidebar
+import Providers from "@/components/Providers"; // <--- Importante
+import ClientLayout from "@/components/ClientLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Sistema Nicopel",
-  description: "Gerenciamento de Compras e Relatórios",
+  description: "Gerenciamento de Compras",
 };
 
 export default function RootLayout({
@@ -17,16 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${inter.className} bg-slate-100 text-slate-800`}>
-        <div className="flex min-h-screen">
-          {/* Menu Lateral Fixo */}
-          <Sidebar />
-
-          {/* Área de Conteúdo Principal (empurrada para direita) */}
-          <main className="flex-1 ml-64 p-8">
+      <body className={`${inter.className} text-slate-800 bg-slate-100`}>
+        {/* O Providers DEVE envolver todo o ClientLayout */}
+        <Providers>
+          <ClientLayout>
             {children}
-          </main>
-        </div>
+          </ClientLayout>
+        </Providers>
       </body>
     </html>
   );
